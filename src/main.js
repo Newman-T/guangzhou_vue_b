@@ -10,6 +10,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 // 导入与vue无关第三方包
 import 'normalize.css'
 import axios from 'axios'
+import '../css/style.css'
 
 // 导入自己写的模块
 import router from './router'
