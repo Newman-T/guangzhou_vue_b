@@ -34,6 +34,10 @@ axios.defaults.withCredentials = true
 Vue.prototype.$http=axios
 Vue.prototype.$api=api
 
+// 导入自己封装的vue插件
+import MyFilter from './filter'
+Vue.use(MyFilter);
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
