@@ -4,11 +4,11 @@
         <!-- model用来关联表单数据, rules用来指定校验规则 -->
         <el-form label-position="left" label-width="80px" :model="formLabelAlign" ref="ruleForm2" :rules="rules">
             <!-- 如果要表单校验与重置功能, 必须加上prop属性 -->
-            <el-form-item label="账号" prop="uname">
-                <el-input v-model="formLabelAlign.uname"></el-input>
+            <el-form-item label="账号" prop="user_name">
+                <el-input v-model="formLabelAlign.user_name"></el-input>
             </el-form-item>
-            <el-form-item label="密码" prop="upwd">
-                <el-input v-model="formLabelAlign.upwd"></el-input>
+            <el-form-item label="密码" prop="password">
+                <el-input v-model="formLabelAlign.password"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="submitForm('ruleForm2')">登录</el-button>
@@ -22,17 +22,17 @@
     export default {
         data(){
                 // user:{
-                //     uname:"admin",
-                //     upwd:"123456"
+                //     user_name:"admin",
+                //     password:"123456"
                 // }
-                function unameFn(rule,value,callback) {
+                function user_nameFn(rule,value,callback) {
                     if(value=""){
                         callback(new Error('账号不能为空'));
                     }else{
                         callback();
                     }
                 }
-                function upwdFn(rule,value,callback) {
+                function passwordFn(rule,value,callback) {
                     if(value=""){
                         callback(new Error('密码不能为空'));
                     }else{
@@ -42,17 +42,17 @@
                 
             return {
                 formLabelAlign: {
-                    uname: '',
-                    upwd: ''
+                    user_name: '',
+                    password: ''
                 },
                 rules:{
-                    uname:[
+                    user_name:[
                         { required: true, message: '请填写账号', trigger: 'blur' },
                         { min: 5, max: 18, message: '账号在5~18位', trigger: 'blur' },
-                        { validator: unameFn, trigger: 'blur' } 
+                        { validator: user_nameFn, trigger: 'blur' } 
                     ],
-                    upwd:[
-                        { validator: upwdFn, trigger: 'blur' },
+                    password:[
+                        { validator: passwordFn, trigger: 'blur' },
                         { pattern: /^\w{6,18}$/, message: '密码在6~18位', trigger: 'blur' },
                     ]
                 }
@@ -63,7 +63,7 @@
                 this.$http.post(this.$api.login,this.formLabelAlign).then(res=>{
                     if(res.data.status==0){
                         let nextPage = this.$route.query.nextPage;
-                        this.$router.push({ path: nextPage?nextPage:'/admin' });
+                        this.$router.push({ path: nextPage?nextPage:'/' });
                     }else{
                         this.$alert(res.data.message);
                     }
