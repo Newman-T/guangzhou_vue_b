@@ -19,7 +19,7 @@
                         <div class="goods-box clearfix">
                             <!--图片预览-->
                             <div class="pic-box">
-                                <detail-view :list="goods.imglist"></detail-view>
+                                <detail-view :imglist="goods.imglist"></detail-view>
                             </div>
                             <!--商品信息-->
                             <detail-info :goods="goods.goodsinfo"></detail-info>
@@ -74,7 +74,10 @@
 </template>
 
 <script>
-import SlideList from "./common/SlideList.vue";
+import SlideList from "./common/SlideList";
+import DetailView from "./common/DetailView";
+import DetailInfo from "./common/DetailInfo";
+import Comment from "./common/Comment";
 export default {
     data() {
         return {
@@ -99,6 +102,9 @@ export default {
     },
     components: {
         SlideList,
+        DetailView,
+        DetailInfo,
+        Comment
     }
 };
 </script>
