@@ -24,35 +24,19 @@
                             <!--商品信息-->
                             <detail-info :goods="goods.goodsinfo"></detail-info>
                         </div>
-
+                        <!-- 商品详情与评论 -->
                         <div id="goodsTabs" class="goods-tab bg-wrap">
-                            <!--选项卡-->
-                            <div id="tabHead" class="tab-head" style="position: static; top: 517px; width: 925px;">
-                                <ul>
-                                    <li>
-                                        <a class="selected" href="javascript:;">商品介绍</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;" class="">商品评论</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!--/选项卡-->
-
-                            <!--选项内容-->
-                            <div class="tab-content entry" style="display:block;">
-                                内容
-                            </div>
-
-                            <div class="tab-content" style="display: block;">
-                                <!--网友评论-->
-                                
-
-                                <!--/网友评论-->
-                            </div>
-
+                            <el-tabs value="first" type="card">
+                                <el-tab-pane label="商品介绍" name="first">
+                                    <div v-html="goods.goodsinfo.content" class="tab-content entry" style="display:block;">详情介绍</div>
+                                </el-tab-pane>
+                                <el-tab-pane label="商品评论" name="second">
+                                    <div class="tab-content" style="display: block;">
+                                        <comment tablename="goods" ></comment>
+                                    </div>
+                                </el-tab-pane>
+                            </el-tabs>
                         </div>
-
                     </div>
                     <!--/页面左边-->
 
@@ -79,33 +63,33 @@ import DetailView from "./common/DetailView";
 import DetailInfo from "./common/DetailInfo";
 import Comment from "./common/Comment";
 export default {
-    data() {
-        return {
-            id: null,
-            goods:{
-                goodsinfo:{},
-                imglist:[],
-                hotgoodslist:[]
-            }
-        }
-    },
-    methods: {
-        getGoods() {
-            this.$http.get(this.$api.goodsDetail+this.id).then(res=>{
-                this.goods=res.data.message;
-            })
-        }
-    },
-    created () {
-        this.id=this.$route.params.id;
-        this.getGoods();
-    },
-    components: {
-        SlideList,
-        DetailView,
-        DetailInfo,
-        Comment
+  data() {
+    return {
+      id: null,
+      goods: {
+        goodsinfo: {},
+        imglist: [],
+        hotgoodslist: []
+      }
+    };
+  },
+  methods: {
+    getGoods() {
+      this.$http.get(this.$api.goodsDetail + this.id).then(res => {
+        this.goods = res.data.message;
+      });
     }
+  },
+  created() {
+    this.id = this.$route.params.id;
+    this.getGoods();
+  },
+  components: {
+    SlideList,
+    DetailView,
+    DetailInfo,
+    Comment
+  }
 };
 </script>
 
