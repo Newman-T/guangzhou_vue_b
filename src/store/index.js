@@ -10,6 +10,9 @@ export default {
   getters: {
     shoppingSum(state) {
       return Object.values(state.shopping).reduce((sum, v) => sum + v, 0);
+    },
+    shoppingIds(state){
+        return Object.keys(state.shopping)
     }
   },
   // 定义修改全局状态的方法
@@ -22,6 +25,10 @@ export default {
     }) {
       // 坑
       Vue.set(state.shopping, id, count);
+      localStorage.setItem('shopping', JSON.stringify(state.shopping));
+    },
+    delShopping(state,id){
+      Vue.delete(state.shopping,id);
       localStorage.setItem('shopping', JSON.stringify(state.shopping));
     }
   }

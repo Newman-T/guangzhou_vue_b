@@ -28,7 +28,7 @@ let router = new Router({
             // 购物车
             {name: 'shopcart', path: '/shopcart', component: Shopcart},
             // 订单
-            {name: 'orderCommit', path: '/order/commit', component: OrderCommit},
+            {name: 'orderCommit', path: '/order/commit/:ids', component: OrderCommit},
             {name: 'orderPay', path: '/order/pay', component: OrderPay},
         ]},
         // 登录
