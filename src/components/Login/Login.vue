@@ -42,8 +42,8 @@
                 
             return {
                 formLabelAlign: {
-                    user_name: '',
-                    password: ''
+                    user_name: 'ivanyb',
+                    password: '123'
                 },
                 rules:{
                     user_name:[
@@ -53,7 +53,7 @@
                     ],
                     password:[
                         { validator: passwordFn, trigger: 'blur' },
-                        { pattern: /^\w{6,18}$/, message: '密码在6~18位', trigger: 'blur' },
+                        { pattern: /^\w{3,18}$/, message: '密码在6~18位', trigger: 'blur' },
                     ]
                 }
             }

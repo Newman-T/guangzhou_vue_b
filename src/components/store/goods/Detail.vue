@@ -32,7 +32,7 @@
                                 </el-tab-pane>
                                 <el-tab-pane label="商品评论" name="second">
                                     <div class="tab-content" style="display: block;">
-                                        <comment tablename="goods" ></comment>
+                                        <comment tablename="goods"></comment>
                                     </div>
                                 </el-tab-pane>
                             </el-tabs>
@@ -73,9 +73,17 @@ export default {
       }
     };
   },
+  watch: {
+    $route() {
+      //   console.log(1)
+      this.id = this.$route.params.id;
+      this.getGoods();
+    }
+  },
   methods: {
     getGoods() {
       this.$http.get(this.$api.goodsDetail + this.id).then(res => {
+        //   console.log(2)
         this.goods = res.data.message;
       });
     }

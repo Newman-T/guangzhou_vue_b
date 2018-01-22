@@ -19,6 +19,8 @@ import router from './router'
 import App from './App'
 // 接口配置
 import api from './js/api-config'
+// 导入全局状态
+import store from './store'
 
 // 统一use启用vue插件
 Vue.use(Vuex)
@@ -43,5 +45,6 @@ new Vue({
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  store:new Vuex.Store(store)
 })

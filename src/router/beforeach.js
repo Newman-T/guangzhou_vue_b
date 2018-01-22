@@ -36,9 +36,9 @@ export default function(to,from,next){
         if(toPageName == 'login' && isLogin){
             next('/');
         // 用户访问后台管理页面, 但是他没有登陆, 那么自动转到登陆页
-        // }else if(toPageName !== 'login' && !isLogin){
-        //     // 跳转到登陆时, 把当前页面通过url参数记录下来
-        //     next({name:'login',query:{nextPage:to.fullPath}});
+        }else if(toPageName !== 'login' && !isLogin){
+            // 跳转到登陆时, 把当前页面通过url参数记录下来
+            next({name:'login',query:{nextPage:to.fullPath}});
         }else{
             next();
         }
