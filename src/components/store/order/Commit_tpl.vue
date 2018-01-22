@@ -148,7 +148,7 @@
                                                 ￥777
                                             </span>
                                         </td>
-                                        <td align="center">224</td>
+                                        <td align="center">{{ item.buycount }}</td>
                                         <td>
                                             <span class="red">
                                                 ￥7777
@@ -195,6 +195,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </template>
 
