@@ -15,6 +15,7 @@ import OrderCommit from '@/components/store/order/Commit'
 import OrderPay from '@/components/store/order/Pay'
 import OrderComplete from '@/components/store/order/Complete'
 import Shopcart from '@/components/store/shopcart/Shopcart'
+import Pay from '@/components/store/pay/Pay'
 
 Vue.use(Router)
 
@@ -35,6 +36,7 @@ let router = new Router({
         ]},
         // 登录
         {name: 'login', path: '/login', component: Login},
+        {name: 'pay', path: '/pay/:orderid/:price', component: Pay},
     ]
     
 });

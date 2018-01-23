@@ -42,7 +42,7 @@
                         <h2 class="slide-tit">
                             <span>1、收货地址</span>
                         </h2>
-                        <form id="orderForm" name="orderForm">
+                        <form id="orderForm" name="orderForm" @submit.prevent="submit">
                             <div class="form-box address-info">
                                 <dl class="form-group">
                                     <dt>收货人姓名：</dt>
@@ -55,7 +55,7 @@
                                 <dl class="form-group">
                                     <dt>所属地区：</dt>
                                     <dd>
-                                        省市区三级联动
+                                        <v-distpicker @selected="formData.area = $event"></v-distpicker>
                                     </dd>
                                 </dl>
                                 <dl class="form-group">
@@ -135,12 +135,12 @@
                                     </tr>
                                     <tr v-for="item in goodsList" :key="item.id">
                                         <td width="68">
-                                            <router-link :to="{name:'goodsDetail',params:{id:item.id}}">
+                                            <router-link :to="{ name: 'goodsDetail', params: { id: item.id } }">
                                                 <img class="img" :src="item.img_url">
                                             </router-link>
                                         </td>
                                         <td>
-                                            <router-link :to="{name:'goodsDetail',params:{id:item.id}}">
+                                            <router-link :to="{ name: 'goodsDetail', params: { id: item.id } }">
                                                 {{item.title}}
                                             </router-link>
                                         </td>
@@ -152,7 +152,7 @@
                                         <td align="center">{{item.buycount}}</td>
                                         <td>
                                             <span class="red">
-                                                ￥{{ item.sell_price*item.buycount }}
+                                                ￥{{ item.sell_price * item.buycount }}
                                             </span>
                                         </td>
                                     </tr>
@@ -186,7 +186,7 @@
                                         <label id="totalAmount" class="price">{{sum}}</label>
                                     </p>
                                     <p class="btn-box">
-                                        <button class="btn button" @click="$router.push({name:'shopcart'})">返回购物车</button>
+                                        <button class="btn button" @click="$router.push({ name: 'shopcart' })">返回购物车</button>
                                         <button id="btnSubmit" class="btn submit" name="btnSubmit" @click="submit">确认提交</button>
                                     </p>
                                 </div>
@@ -200,19 +200,23 @@
 </template>
 
 <script>
+import VDistpicker from "v-distpicker";
 export default {
+  components: {
+    VDistpicker
+  },
   data() {
     return {
-        expressPrice:{
-            1:20,
-            2:15,
-            3:10
-        },
+      expressPrice: {
+        1: 20,
+        2: 15,
+        3: 10
+      },
       ids: null,
       goodsList: [],
       formData: {
-        payment_id:'6',
-        express_id:'1' 
+        payment_id: "6",
+        express_id: "1"
       }
     };
   },
@@ -227,7 +231,6 @@ export default {
       );
     },
     expressMoment() {
-
       return this.expressPrice[this.formData.express_id];
     },
     sum() {
@@ -238,20 +241,23 @@ export default {
     getGoodsList() {
       this.$http.get(this.$api.shopcartGoods + this.ids).then(res => {
         res.data.message.forEach(goods => {
-          goods.buycount = this.$store.state.shopping[goods.id];
+          goods.buycount = this.$store.state.shopping[goods.id]
         });
         this.goodsList = res.data.message;
       });
     },
     submit() {
-        this.formData.goodsAmount=this.goodsSum;
-        this.formData.goodsMoment=this.expressPrice;
-        this.formData.goodsids=this.ids;
-        this.formData.cargoodsobj=this.ids.split(",").reduce((obj,id)=>{obj[id]=5;return obj;},{});
-      this.$http.post(this.$api.orderSubmit,this.formData).then(res => {
-          if(res.data.message==0){
-            //   this.
-          }
+      this.formData.goodsAmount = this.goodsSum;
+      this.formData.expressMoment = this.expressMoment;
+      this.formData.goodsids = this.ids;
+      this.formData.cargoodsobj = this.ids.split(",").reduce((obj, id) => {
+        obj[id] = 5;
+        return obj;
+      }, {});
+      this.$http.post(this.$api.orderSubmit, this.formData).then(res => {
+        if(res.data.status == 0) {
+          this.$router.push({ name: 'orderPay', params: { id: res.data.message.orderid } })
+        }
       });
     }
   },
